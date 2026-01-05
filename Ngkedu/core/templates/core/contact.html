@@ -1,0 +1,60 @@
+{% extends "core/base.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Contact Us</h1>
+
+    <p class="mb-6 text-gray-600">
+        Have questions or feedback? Fill out the form below and we’ll get back to you as soon as possible.
+    </p>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+
+        <div>
+            <label class="block mb-2 text-sm font-semibold text-gray-700">
+                Your Name
+            </label>
+            <input
+                type="text"
+                name="name"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+        </div>
+
+        <div>
+            <label class="block mb-2 text-sm font-semibold text-gray-700">
+                Email Address
+            </label>
+            <input
+                type="email"
+                name="email"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+        </div>
+
+        <div>
+            <label class="block mb-2 text-sm font-semibold text-gray-700">
+                Message
+            </label>
+            <textarea
+                name="message"
+                rows="5"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+        </div>
+
+        <button
+            type="submit"
+            class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+        >
+            Send Message
+        </button>
+    </form>
+</div>
+{% endblock %}

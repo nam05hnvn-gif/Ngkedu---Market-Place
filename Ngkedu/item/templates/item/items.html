@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Browse Items{% endblock %}
+
+{% block content %}
+    <div class="grid grid-cols-4 gap-6">
+        <div class="col-span-1 bg-gray-100 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Browse Items</h2>
+            <form method="get" class="space-y-4">
+                <input type="text" name="q" placeholder="Search..." value="{{ query }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Search</button>
+            </form>
+            <h3 class="text-lg font-bold mt-6 mb-2">Categories</h3>
+            <ul class="mt-6">
+                {% for category in categories %}
+                    <li class="mb-2 {% if category.id == category_id %}bg-blue-100{% endif %} p-2 rounded-lg">
+                        <a href="{% url 'item:items' %}?category={{ category.id }}&q={{ query }}" class="text-blue-500 hover:underline">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h3 class="text-lg font-bold mt-6 mb-2">Clear Filter</h3>
+            <a href="{% url 'item:items' %}" class="text-white hover:underline rounded bg-red-700 p-2">Clear</a>
+        </div>
+
+        <div class="col-span-3">
+            <h1 class="text-2xl font-bold mb-6 text-center">All Items</h1>
+            <div class="grid grid-cols-3 gap-4">
+                {% for item in items %}
+                    <a href="{% url 'item:detail' item.pk %}">
+                        <div class="bg-white p-4 rounded-lg">
+                            <div class="overflow-hidden rounded-t-lg h-40 bg-white mb-4">
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-full object-contain">
+                                {% else %}
+                                    <img src="{% static 'core/default_image.jpg' %}" alt="No Image" class="w-full h-full object-contain">
+                                {% endif %}
+                            </div>
+                            <h3 class="text-lg font-semibold">{{ item.name }}</h3>
+                            <p class="text-gray-700">Price: ${{ item.price }}</p>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p>No items found.</p>
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}

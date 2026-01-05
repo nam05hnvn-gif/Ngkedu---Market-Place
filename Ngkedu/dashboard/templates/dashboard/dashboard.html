@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div class="mb-6 p-6 bg-gray-100 rounded-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center">My item</h1>
+        <div class="grid grid-cols-3 gap-3">
+            {% for item in user_items %}
+                <a href="{% url 'item:detail' item.pk %}">
+                    <div>
+                        <div class="overflow-hidden rounded-t-xl h-48 bg-white">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-full object-contain">
+                            {% else %}
+                                <img src="{% static 'core/default_image.jpg' %}" alt="No Image" class="w-full h-full object-contain">
+                            {% endif %}
+                        </div>
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+                            <p class="text-gray-700">Price: ${{ item.price }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% empty %}
+                <p>No items.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
