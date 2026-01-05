@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-1r@!hy-p)f^vvt&@2k=44g^kqcyhuuax^torb)rv5r#i64ah7f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ngkedu-market-place.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 
+# Authentication settings
 LOGIN_URL = 'core:login'
 LOGIN_REDIRECT_URL = 'core:index'
 LOGOUT_REDIRECT_URL = 'core:index'
